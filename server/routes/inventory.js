@@ -28,10 +28,24 @@ router.post("/item", (req, res)=> {
         res.status(400).send(err.message)
     })
 });
-
-router.get("/viewItem", (req, res)=>{
+router.get("/electronics", (req, res)=>{
     inventory_model.find().then((data)=>{
-        res.status(200).send({data: data});
+        if(data.inventory_type === "Electronics" ){
+            res.render(data);
+        }
+    })
+})
+router.get("/furniture", (req, res)=>{
+    inventory_model.find().then((data)=>{
+        if(data.inventory_type === "Furniture" ){
+            res.render(data);
+        }
+    })
+})
+
+router.get("/", (req, res)=>{
+    inventory_model.find().then((data)=>{
+        res.render("data", {data})
     })
 })
 module.exports = router;

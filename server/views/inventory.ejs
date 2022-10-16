@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        li{
+            list-style: none;
+            margin-top: 10px;
+        }
+        h1, p{
+            margin: 40px;
+        }
+    </style>
+    <title>Inventory</title>
+</head>
+<body>
+    <div style="margin: 100px 500px; background-color: rgb(248, 196, 248); border: 2px solid rgb(88, 87, 87);">
+        <h1>Inventory</h1>
+        <table style="border: 1px solid grey">
+            <tr>
+            <th>Inventory_id</th>
+            <th>Inventory Type</th>
+            <th>Item Name</th>
+            <th>Available quantity</th>
+            </tr>
+        <% for(let i=0; i<data.length; i++) {%>
+            <tr>
+                <td><%= data[i]._id %></td>
+                <td><%= data[i].inventory_type %></td>
+                <td><%= data[i].item_name %></td>
+                <td><%= data[i].available_quantity %></td>
+            </tr>
+            <% } %>
+        </table>
+    </div>
+  </body>
+</html>
