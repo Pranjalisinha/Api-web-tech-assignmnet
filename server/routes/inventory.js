@@ -5,15 +5,15 @@ const router = express.Router();
 
 
 router.post("/item", (req, res)=> {
-    inventory_model.find({ inventory_id: req.body.inventory_id }).then((data) => {
+    inventory_model.find({ inventory_type: req.body.inventory_type, item_name: req.body.item_name  }).then((data) => {
         if (data.length) {
             const quantity=(data[0].available_quantity)+(req.body.available_quantity)
             inventory_model.updateOne({ inventory_id: req.body.inventory_id },{$set: {available_quantity:quantity}}).then((data)=>{
-                res.status(200).send("Inventory Added Sucessfully")
+                res.status(200).send(`Inventory Added Sucessfully`)
             }).catch((err) => {
                 res.status(400).send(err.message)
             })
-        } else {
+             } else {
             inventory_model.create({
             item_name:req.body.item_name,
             inventory_type:req.body.inventory_type,
@@ -30,22 +30,30 @@ router.post("/item", (req, res)=> {
 });
 router.get("/electronics", (req, res)=>{
     inventory_model.find().then((data)=>{
-        if(data.inventory_type === "Electronics" ){
-            res.render(data);
+        let arr = [];
+        for(let i=0; i<data.length; i++){
+        if(data[i].inventory_type === "Electronics" ){
+            arr.push(data[i]);
         }
+    }
+    res.status(200).send(arr);
     })
 })
 router.get("/furniture", (req, res)=>{
     inventory_model.find().then((data)=>{
-        if(data.inventory_type === "Furniture" ){
-            res.render(data);
+        let arr = [];
+        for(let i=0; i<data.length; i++){
+            if(data[i].inventory_type === "Furniture" ){
+                arr.push(data[i]);
+            }
         }
+        res.status(200).send(arr);
     })
 })
 
-router.get("/", (req, res)=>{
+router.get("/viewItem", (req, res)=>{
     inventory_model.find().then((data)=>{
-        res.render("data", {data})
+        res.status(200).send(data);
     })
 })
 module.exports = router;

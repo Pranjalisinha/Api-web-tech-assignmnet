@@ -24,11 +24,12 @@ mongoose.connect("mongodb://localhost/api_web_tech_assignmnet", (data)=>{
 })
 
 app.get("/",(req,res)=>{
-    inventory_model.find().then((data)=>{
-        res.render("data", data)
-    })
+    // inventory_model.find().then((data)=>{
+    //     res.render("data", data)
+    // })
+    res.status(200).send("Inventory")
 })
 
-app.use("/data", inventoryController)
+app.use("/inventory", inventoryController)
 app.use("/user", customerController)
 app.use("/add", orderController)
